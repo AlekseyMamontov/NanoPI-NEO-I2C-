@@ -175,10 +175,6 @@ chip->registr[registr] = value;
    
 exit: close(chip_open);
 
-printf("\n chip  %s", chip ->i2_bus);
-printf("\n address  %01x", chip->address);
-printf("\n registr  %hhd", registr);
-printf("\n value  %01x", value); 
 
 return res;}
 
@@ -206,11 +202,6 @@ int MCP23017_read_byte (MCP23017 *chip , __int8_t registr){
 chip->registr[registr] = buf[0];
    
 exit: close(chip_open);
-
-printf("\n chip  %s", chip ->i2_bus);
-printf("\n address  %01x", chip->address);
-printf("\n registr  %hhd", registr);
-printf("\n value  %01x",  buf[0]); 
 
 return res;}
 
