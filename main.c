@@ -138,204 +138,123 @@ bit1  (iNTPOL)  0 -  вслучаи прерывания активный сиг
 #define OLATB 0x1a
  
  */
-
-//#define MCP23017_addr_I2C 0x20
-#define MCP23017_n_register  0x16
-
-
-//int8_t MCP23017_chip;
-int8_t MCP23017_registers [MCP23017_n_register] ={0};
-
-// имя шины I2C к какой подключена микросхема
-// NanoPi neo (24pin) 3 - I2C0_SDA . 5 - I2C0_SCL
-const char * MCP23017_i2c_bus = "/dev/i2c-0";
+#define TRUE  1
+#define FALSE 0
 
 
-
-void MCP23017_init ( int8_t MCP23017_addr_2c);
-// запись в регистры  
-void MCP23017_write_byte (int8_t MCP23017_addr_2c, int8_t registr, int8_t value);
-//  чтение из регистра
-int8_t  MCP23017_read_byte (int8_t MCP23017_addr_i2c, int8_t registr);
-// запись  буфера регистров в микросхему
-void MCP23017_write_all_registers( int8_t MCP23017_addr_i2c );
-//  выставить bit  на микросхеме
-
-
-
-
-
-
-
-
-
-int main(){
+typedef struct {
+     char *i2_bus;
+  __int8_t address;
+  __int8_t registr[0x16];
  
-    /*int adapter_nr = 0;
- char filename [20];
- snprintf (filename , 19, "/ dev / i2c-% d", adapter_nr);   
- */   
-    
-//MCP23017_init (0x20);
-    
-for (;;){    
-    
-MCP23017_write_byte(MCP23017_addr_I2C, OLATA,0xff);
-sleep(1);
-MCP23017_write_byte(MCP23017_addr_I2C, OLATA,0x00);
-sleep(1);
-MCP23017_write_byte(MCP23017_addr_I2C, OLATA,0xf0);
-sleep(1);
-MCP23017_write_byte(MCP23017_addr_I2C, OLATA,0x0f);
-sleep(1);
-MCP23017_write_byte(MCP23017_addr_I2C, OLATA,0x00);
-};
+}MCP23017;
 
 
-};
+MCP23017 chip1 = {"/dev/i2c-0",0x20};
+MCP23017 chip2 = {"/dev/i2c-1",0x21};
 
 
 
-//////////////////////////////////////  запись данных в регистр //////////////////////////////////////////
-
-
-void  MCP23017_write_byte(int8_t MCP23017_addr_i2c,int8_t registr, int8_t value){
-   
-  static int8_t buf[2] = {0};
-   buf[0] = registr;
-   buf[1] = value;
-   
-   int MCP23017_chip = open( MCP23017_i2c_bus , O_RDWR); 
-             if (MCP23017_chip < 0) {perror(" Шина I2C не включена "); exit(1);}
-   
-    
-   if (ioctl(MCP23017_chip, I2C_SLAVE, MCP23017_addr_i2c) < 0) {perror("Устройство на шине I2C не найдено");  close (MCP23017_chip); exit(1);}
- 
-   // Выставляем в буфере buf[0] номер  регистра ,  buf[1]  - что писать в этот регистр
-   if (write(MCP23017_chip, buf, 2) != 2) {perror("не удалось записать данные в микросхему");  close (MCP23017_chip); exit(1);}    
-   
-   
-   MCP23017_registers [registr] = value;
-   
-   close(MCP23017_chip);
-   
-}; 
-    
-//////////////////////////////////////  чтение данных из регистра ///////////////////////////////////////
-
-
-int8_t  MCP23017_read_byte(int8_t MCP23017_addr_i2c, int8_t registr){
-   
-  static int8_t buf[2] = {0};
-   buf[0] = registr;
-   buf[1] = 0;
-   
-       int MCP23017_chip = open( MCP23017_i2c_bus , O_RDWR); 
-             if (MCP23017_chip < 0) {
-                 perror(" Шина I2C не включена "); 
-                 exit(1);}
-   
-     if (ioctl(MCP23017_chip, I2C_SLAVE, MCP23017_addr_i2c) < 0) {
-                perror("Устройство на шине I2C не найдено");  
-                close (MCP23017_chip); 
-                exit(1);}
- 
-   
-   // При чтении из микросхемы надо сначало выставить адресс регистра 
-   // это происходит при записи адреса, а  потом рестарт и чтение данных
-   
-    if (write(MCP23017_chip, buf, 1) != 1) {
-         perror("не удалось выставить адресс регистра для чтения");  
-         close (MCP23017_chip); 
-         exit(1);}
-   
-    if (read(MCP23017_chip, buf, 1) != 1) {
-        perror("не удалось  прочитать данные из микросхемы");  
-        close (MCP23017_chip); 
-        exit(1);}
+int MCP23017_write_byte (MCP23017 *chip , __int8_t registr, __int8_t value){
   
-   close(MCP23017_chip);
+ static __int8_t buf[2] = {0};
+ static __int8_t res = TRUE ; 
+  buf[0] = registr;
+  buf[1] = value;
+ 
+    int chip_open = open( chip->i2_bus , O_RDWR);  
+    if (chip_open< 0) {perror(" Шина I2C не включена "); res = FALSE;return res;}
+  
+    if ( ioctl(chip_open, I2C_SLAVE, chip->address ) < 0) {
+         perror("Устройство на шине I2C не найдено"); res = FALSE; goto exit;}
+ 
+    if (write(chip_open, buf, 2) != 2) {
+        perror("не удалось записать данные в микросхему");  res = FALSE; goto exit;}    // Выставляем в буфере buf[0] номер  регистра ,  buf[1]  - что писать в этот регистр
    
-   MCP23017_registers [registr] = buf [0];
+chip->registr[registr] = value;
    
- return MCP23017_registers [registr];
-};
+exit: close(chip_open);
+
+printf("\n chip  %s", chip ->i2_bus);
+printf("\n address  %01x", chip->address);
+printf("\n registr  %hhd", registr);
+printf("\n value  %01x", value); 
+
+return res;}
+
+
+int MCP23017_read_byte (MCP23017 *chip , __int8_t registr){
+  
+ static __int8_t buf[2] = {0,0};
+  buf[0] = registr;
+ static __int8_t res = TRUE; 
 
  
+    int chip_open = open( chip->i2_bus , O_RDWR);  
+     if (chip_open< 0) {perror(" Шина I2C не включена "); res = FALSE;return res;}
+  
+    if ( ioctl(chip_open, I2C_SLAVE, chip->address ) < 0) {
+         perror("Устройство на шине I2C не найдено"); res = FALSE; goto exit;}
  
- 
-/////////////////////////////  Иницилизация при запуске  /////////////////////////////////////////
- // пока правильно не работает - исправить))
-void MCP23017_init ( int8_t MCP23017_addr_i2c){ (
+    if (write(chip_open, buf, 1) != 1) {
+        perror("не удалось выставить регистр в микросхеме");  res = FALSE; goto exit;}   // Выставляем в буфере buf[0] номер  регистра 
     
+    if (read(chip_open, buf, 1) != 1) {
+        perror("не удалось  прочитать данные из микросхемы"); res = FALSE; goto exit;}
+    
+   
+chip->registr[registr] = buf[0];
+   
+exit: close(chip_open);
+
+printf("\n chip  %s", chip ->i2_bus);
+printf("\n address  %01x", chip->address);
+printf("\n registr  %hhd", registr);
+printf("\n value  %01x",  buf[0]); 
+
+return res;}
+
+
+
+
+int main(int argc, char** argv) {
  
+    //тест
+    
+    MCP23017_write_byte (&chip1, IOCON, 0);
+    MCP23017_write_byte (&chip1, IODIRA, 0);
+    MCP23017_write_byte (&chip1, OLATA, 0xff);
+    
+    MCP23017_read_byte (&chip1,OLATA);
+    MCP23017_read_byte (&chip1,IODIRB);
     
     
- // записав 0 во все регистры микросхемы мы установим значения по умолчанию 
- // и гаранитованно получим режим 16bit - последовательно регистры
- // порты на вход   
     
- for (int i=0; i<MCP23017_n_register; i++) {MCP23017_registers [i] = 0 ;};
+   
 
- MCP23017_registers  [IODIRA] = 0xff;
- MCP23017_registers  [IODIRB] = 0xff;
- 
- MCP23017_write_all_registers(  MCP23017_addr_i2c);
-
- // тут выставляем порты на вход-выход и значение на них
- // и другие значения в регистрах по необходимости 
- // 
- 
- MCP23017_registers  [IODIRA] = 0;
- MCP23017_registers  [IODIRB] = 0xff;
- MCP23017_registers  [OLATA] = 0;
- MCP23017_registers  [OLATB] = 0xff;
- //
- MCP23017_write_all_registers(  MCP23017_addr_i2c);
- 
- /* тут желательно  сделать проверку  на пригодность микросхемы
- считать значения из микросхемы и сравнить их с этим буфером
- если совпадают значит все впорядки.))) или ...
- */
- 
-};
-
-/////////////////////////// Запись всех регистров из буфера в микросхему //////////////
-
-void MCP23017_write_all_registers( int8_t MCP23017_addr_i2c ){
-
-int MCP23017_chip = open(MCP23017_i2c_bus , O_RDWR);
-       if (MCP23017_chip < 0) {
-       perror(" Шина I2C не включена "); 
-       exit(1);}
-     
-if (ioctl(MCP23017_chip, I2C_SLAVE, MCP23017_addr_i2c) < 0) {
-      perror("Устройство на шине I2C не найдено");  \
-      close (MCP23017_chip); 
-      exit(1);}
- 
-int8_t buf[1] = {0};
- 
-//Выставить адрес регистра начало (0)
-
-if (write(MCP23017_chip, buf, 1) != 1) {
-       perror("не удалось записать данные в микросхему");  
-       close (MCP23017_chip); 
-       exit(1);}  
- 
-if (write(MCP23017_chip, MCP23017_registers, MCP23017_n_register) != MCP23017_n_register) {
-       perror("не удалось записать данные в микросхему");  
-       close (MCP23017_chip); 
-       exit(1);}
-
-close(MCP23017_chip);
- 
+    
+for(__int8_t i=0; i< 0x16; i++){
+    
+    printf("\n regist[%hhd] = %x   <------> regist[%hhd] = %x",i, chip1.registr[i],i, chip2.registr[i]);
+    
 };
 
 
+sleep(1);
+
+
+for (__int8_t  i=0; i<255; i++){
+
+
+MCP23017_write_byte (&chip1, OLATA, i);
+
+sleep(1);
+
+};
 
 
 
 
+return (EXIT_SUCCESS);
+}
 
- 
