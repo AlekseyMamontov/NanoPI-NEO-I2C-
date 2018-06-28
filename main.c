@@ -158,23 +158,30 @@ MCP23017 chip2 = {"/dev/i2c-1",0x21};
 int MCP23017_write_byte (MCP23017 *chip , __int8_t registr, __int8_t value){
   
  static __int8_t buf[2] = {0};
- static __int8_t res = TRUE ; 
+ static __int8_t res = FALSE ; 
   buf[0] = registr;
   buf[1] = value;
  
     int chip_open = open( chip->i2_bus , O_RDWR);  
-    if (chip_open< 0) {perror(" Шина I2C не включена "); res = FALSE;return res;}
+    if (chip_open< 0) {perror(" Шина I2C не включена ");return res;}
   
     if ( ioctl(chip_open, I2C_SLAVE, chip->address ) < 0) {
-         perror("Устройство на шине I2C не найдено"); res = FALSE; goto exit;}
+         perror("Устройство на шине I2C не найдено"); goto exit;}
  
     if (write(chip_open, buf, 2) != 2) {
-        perror("не удалось записать данные в микросхему");  res = FALSE; goto exit;}    // Выставляем в буфере buf[0] номер  регистра ,  buf[1]  - что писать в этот регистр
-   
+        perror("не удалось записать данные в микросхему"); goto exit;}    // Выставляем в буфере buf[0] номер  регистра ,  buf[1]  - что писать в этот регистр
+
+res = TRUE;
 chip->registr[registr] = value;
    
 exit: close(chip_open);
 
+/* тест
+printf("\n chip  %s", chip ->i2_bus);
+printf("\n address  %01x", chip->address);
+printf("\n registr  %hhd", registr);
+printf("\n value  %01x", value); 
+*/
 
 return res;}
 
@@ -183,26 +190,31 @@ int MCP23017_read_byte (MCP23017 *chip , __int8_t registr){
   
  static __int8_t buf[2] = {0,0};
   buf[0] = registr;
- static __int8_t res = TRUE; 
+ static __int8_t res = FALSE; 
 
  
     int chip_open = open( chip->i2_bus , O_RDWR);  
-     if (chip_open< 0) {perror(" Шина I2C не включена "); res = FALSE;return res;}
+     if (chip_open< 0) {perror(" Шина I2C не включена ");return res;}
   
     if ( ioctl(chip_open, I2C_SLAVE, chip->address ) < 0) {
-         perror("Устройство на шине I2C не найдено"); res = FALSE; goto exit;}
+         perror("Устройство на шине I2C не найдено"); goto exit;}
  
     if (write(chip_open, buf, 1) != 1) {
-        perror("не удалось выставить регистр в микросхеме");  res = FALSE; goto exit;}   // Выставляем в буфере buf[0] номер  регистра 
+        perror("не удалось выставить регистр в микросхеме"); goto exit;}   // Выставляем в буфере buf[0] номер  регистра 
     
     if (read(chip_open, buf, 1) != 1) {
-        perror("не удалось  прочитать данные из микросхемы"); res = FALSE; goto exit;}
+        perror("не удалось  прочитать данные из микросхемы"); goto exit;}
     
-   
+res = TRUE;   
 chip->registr[registr] = buf[0];
    
 exit: close(chip_open);
-
+/* тест
+printf("\n chip  %s", chip ->i2_bus);
+printf("\n address  %01x", chip->address);
+printf("\n registr  %hhd", registr);
+printf("\n value  %01x",  buf[0]); 
+*/
 return res;}
 
 
