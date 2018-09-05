@@ -110,6 +110,7 @@ bit1  (iNTPOL)  0 -  вслучаи прерывания активный сиг
 #include <fcntl.h>
 #include <linux/i2c.h> // struct i2c_rdwr_ioctl_data 
 
+#include <linux/spi/spidev.h>
 
 #define OK  0
 #define ERORR -1
@@ -118,7 +119,7 @@ bit1  (iNTPOL)  0 -  вслучаи прерывания активный сиг
 
 typedef struct {
      char *i2_bus;
-  __int8_t address;
+ __int16_t  address;
  int       chip_open;
  int       bus_open;
   __int8_t registr[0x16];
@@ -161,7 +162,6 @@ int mcp23017_open_read_write (MCP23017 *chip){
 };  
 
 
-
 //------------------------------------------ write bytes 8bit------------------------------------------//
 
 __int8_t mcp23017_write_byte (MCP23017 *chip , __int8_t registr, __int8_t value){
@@ -187,12 +187,13 @@ buf[1] = value;                                             // buf[1]  - что 
  return  chip_write;}
 
 
-
 ///----------------------------------------read  bytes 8bit ------------------------------------------------//
 
 __int8_t mcp23017_read_byte (MCP23017 *chip, __int8_t registr){
 
    if (mcp23017_open_i2c (chip) < 0)  return chip->bus_open;  
+   
+   
    
     static __int8_t buf[1];
     buf[0]= registr;                                                                          //выставить регистр который читаем
@@ -213,8 +214,58 @@ __int8_t mcp23017_read_byte (MCP23017 *chip, __int8_t registr){
                                                            return -1;}
  
 
-return chip->registr[registr];}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+return chip->registr[registr];};
+
+///------------------------------------------- i2c (mcp23017) emulation SPI  for max6675 -----------------------------------------------------///
+// GPIOA BIT(0) - miso, BIT(1) - clk ,BIT(2) - cs 
+
+int mcp23017_read_SPI (MCP23017 *chip){
+
+if (mcp23017_open_i2c (chip) < 0)  return chip->bus_open; 
+
+__int16_t temperatura = 0x0;
+__int8_t buf_MISO[1] ;
+__int8_t bit_miso = 0;
+__int8_t buf_CLK[2] = {OLATA,0x02};
+
+struct i2c_msg msgCLK [1] = {
+                                            {chip->address, 0x0, 2, buf_CLK}
+                                             };
+
+struct i2c_msg msgMISO [2] ={
+                                            {chip->address, 0x0, 1, buf_MISO},               //выставить адрес (методом записи)
+                                            {chip->address, I2C_M_RD, 1, buf_MISO}
+                                              };
+
+ struct i2c_rdwr_ioctl_data CLK = {msgCLK, 1 };
+ struct i2c_rdwr_ioctl_data MISO = {msgMISO, 2 };
+
+ 
+ for(__int8_t i=0; i< 17; i++){
+     
+ buf_CLK[1]= 0x02;
+     if ( ioctl(chip->bus_open, I2C_RDWR, &CLK ) < 0 ){ perror("I2C erorr CLK ");} ;
+
+buf_MISO[0] = GPIOA;
+    if ( ioctl(chip->bus_open, I2C_RDWR, &MISO ) < 0 ){ perror("I2C erorr MISO");} ;
+             //bit_miso = buf_MISO[0]&0x01;
+             temperatura = temperatura | (buf_MISO[0]&0x01);
+                if (i <16) temperatura = temperatura << 1;
+  
+buf_CLK[1]= 0x00;
+    if ( ioctl(chip->bus_open, I2C_RDWR, &CLK ) < 0 ){ perror("I2C erorr CLK");} ;         
+
+ };
+
+ temperatura = temperatura >> 5; 
+
+if ( mcp23017_close_i2c (chip) < 0){ perror("I2C erorr close() "); 
+                                                           return -1;}
+ return temperatura;
+};
+
+
+//--------------------------------------------------------------- spi -----------------------------------------------------------------//
 
 
 
@@ -224,17 +275,44 @@ return chip->registr[registr];}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// тесты
 
 int main(int argc, char** argv) {
  
-    //тест
-    
- //   MCP23017_write_byte (&chip1, IOCON, 0);
- //  MCP23017_write_byte (&chip1, IODIRA, 0);
- //   MCP23017_write_byte (&chip1, OLATA, 0xff);
+  
     
     
-MCP23017_write_byte (&chip1, IODIRA, 0);
+mcp23017_write_byte (&chip1, IODIRA, 0);
+mcp23017_write_byte (&chip2, IODIRA, 0x1);
+//mcp23017_write_byte (&chip2, OLATA, 0x04);
 
     
 for(__int8_t i=0; i< 0x16; i++){
@@ -248,20 +326,30 @@ for(__int8_t i=0; i< 0x16; i++){
 };
 
 
-mcp23017_write_byte (&chip1, IODIRA, 0);
+mcp23017_write_byte (&chip2, OLATA, 0x0);  //cs - enable
+test:
+
+printf(" \n temperatura %hd",mcp23017_read_SPI (&chip2));
+
+mcp23017_write_byte (&chip2, OLATA, 0x04); //cs- disabled
+
 
 sleep(1);
 
-
-for (__int8_t  i=0; i<255; i++){mcp23017_write_byte (&chip1, OLATA, i);sleep(1);};
-
-
+goto test;
 
 
 return (EXIT_SUCCESS);
+//for (__int8_t  i=0; i<255; i++){mcp23017_write_byte (&chip1, OLATA, i);sleep(1);};
+//return (EXIT_SUCCESS);
 }
 
 
 
 
 
+/*
+ 
+ 
+ 
+ */
