@@ -141,7 +141,7 @@ int mcp23017_open_i2c(MCP23017 *chip){
 
 int mcp23017_close_i2c (MCP23017 *chip){
     
-    int chip_close = close(chip->chip_open);
+    int chip_close = close(chip->bus_open);
         if (chip_close <0) perror("mcp23017 error close() I2C  ");
     
     return chip_close;};
