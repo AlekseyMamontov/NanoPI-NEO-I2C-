@@ -108,12 +108,10 @@ mcp23017_write_byte (chip_tft, IODIRA,0);
 mcp23017_write_byte (chip_tft, IODIRB,0);
 
 
-mcp23017_write_byte (chip_tft, OLATB, 0b00011111);
-//sleep(1);
+mcp23017_write_byte (chip_tft, OLATB, 0b00011111); // сброс
 mcp23017_write_byte (chip_tft, OLATB, 0b00010111);
-//sleep(1);
 mcp23017_write_byte (chip_tft, OLATB, 0b00011111);
-//sleep(1);
+sleep(1); // Эта задержка обьязательна после сброса (ибо будут артефакты в начале).
 mcp23017_write_byte (chip_tft, OLATB, 0b00011101);
 mcp23017_write_byte (chip_tft, IOCON, 0b00100000);
 
