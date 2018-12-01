@@ -39,9 +39,9 @@ static char table_key_TTP229[MAX_key_TTP229] = {
 };
 
 TTP229L chip_keys = { .i2_bus = "/dev/i2c-0",
-					  .address = 0x57,
-					  .table_key = table_key_TTP229,
-					};
+		      .address = 0x57,
+		      .table_key = table_key_TTP229,
+};
 
 
 
@@ -77,7 +77,7 @@ static uint8_t buf[2] = {0};
                                             
    if (TTP229L_open_i2c (chip) < 0) return chip->bus_open;
              
-        if ( ioctl(chip->bus_open, I2C_RDWR, &rdwr ) < 0 ) perror("I2C erorr rdwr");
+        if ( ioctl(chip->bus_open, I2C_RDWR, &rdwr ) < 0 ) perror("TTL229 i2c erorr rdwr");
 
   if ( TTP229L_close_i2c (chip) < 0) perror("I2C erorr close() ");
                                                                                                                    
@@ -104,10 +104,9 @@ chip->bufer[0] = 0;
 	
 	for(int i=0; i<16; i++){
 		
-		if(data_key&1<<i){			
-							chip->bufer[s_bufer]= chip->table_key[i];
-							s_bufer ++;
-						  };						  
+	    if(data_key&1<<i){	chip->bufer[s_bufer]= chip->table_key[i];
+				s_bufer ++;
+			};						  
 	};
 
 chip->size_bufer = s_bufer;
@@ -135,7 +134,7 @@ if (chip_keys.size_bufer == 0) goto test;
 
 	for(int i=0; i < chip_keys.size_bufer; i++ ){
 								
-								printf("%d+", chip_keys.bufer[i]);
+	    printf("%d+", chip_keys.bufer[i]);
 	};
 
 printf ("\n");
@@ -144,7 +143,7 @@ printf ("\n");
 goto test ;
 
 
-return (EXIT_SUCCESS);}
+return 0;}
 
 
 
