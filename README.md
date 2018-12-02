@@ -4,6 +4,21 @@ i2c 400 kHz, в реальности в Linux может работать до 1
 
 Для этого в дереве устройств надо выставить частоту ))
 
+i2c@1c2ac00 {
+			compatible = "allwinner,sun6i-a31-i2c";
+			reg = <0x1c2ac00 0x400>;
+			interrupts = <0x0 0x6 0x4>;
+			clocks = <0x3 0x3b>;
+			resets = <0x3 0x2e>;
+			pinctrl-names = "default";
+			pinctrl-0 = <0x17>;
+			status = "okay";
+			#address-cells = <0x1>;
+			#size-cells = <0x0>;
+			clock-frequency = <10000000>; // 1 Mhz )) 
+      
+      или 1 700 000 
+      
 работа с шиной I2C в частности с микросхемой MCP23017  до 1.7 Mhz
 
 TFT(480x320) 3.5 inch ili9486 or ili9481  for NanoPI NEO
