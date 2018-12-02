@@ -16,11 +16,11 @@ i2c@1c2ac00 {
 			status = "okay";
 			#address-cells = <0x1>;
 			#size-cells = <0x0>;
-			clock-frequency = <10000000>; // 1 Mhz )) 
-      
-       }
-       
-      
+			clock-frequency = <10000000>;
+			};
+			
+			
+			// 1 Mhz )) 
 работа с шиной I2C в частности с микросхемой MCP23017  до 1.7 Mhz
 
 TFT(480x320) 3.5 inch ili9486 or ili9481  for NanoPI NEO
