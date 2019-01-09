@@ -38,7 +38,9 @@ struct Thermosensors{
 	char     thermo_char[MAX_thermal_sensor][6];
 	uint8_t  N_text_char;
 	
-	// подключена ли термопара или нет 0 -yes / 1 -no
+	// подключена ли термопара или нет 0 -yes 
+	// 4 - нет термопары, 5 - устройства не включено или нет
+	
 	uint8_t  check_thermocouple[MAX_thermal_sensor];	
 
 };
@@ -47,7 +49,7 @@ struct Thermosensors{
 	
 
 //---------------- i2c (mcp23017) emulation SPI  for max6675 ---------------//
-//	  BIT(2..7) - miso, BIT(0) - clk ,BIT(2) - cs							//
+//	  BIT(2..7) - miso, BIT(0) - clk ,BIT(2) - cs			    //
 //--------------------------------------------------------------------------//
 
 int Read_raw_MAX6675(struct Thermosensors *thermosensor){
@@ -159,7 +161,7 @@ return 0;
 
 
 //--------------------------------------------------------------------------//
-//	 Преобразования числа в строку  										//
+//	 Преобразования числа в строку  				    //
 //--------------------------------------------------------------------------//
 
 void max6675_data_to_char(struct Thermosensors *thermosensor){
