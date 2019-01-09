@@ -176,7 +176,7 @@ for (int t=0; t< thermosensor->N_thermal_sensors;t++){
 	 
 	if(!thermosensor->check_thermocouple[t]){
 
-		 // sprintf лучщее переделать в свою функцию, позже ))
+		 // sprintf лучше переделать в свою функцию, позже ))
 		 
 		number = sprintf (text_copy,"%d", thermosensor->thermo_data[t]);
 
