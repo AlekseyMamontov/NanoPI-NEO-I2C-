@@ -5,8 +5,7 @@ i2c 400 kHz, в реальности в Linux может работать до 1
 Для этого в дереве устройств надо выставить частоту ))
 
 <code>
-i2c@1c2ac00 {
-	
+	i2c@1c2ac00 {	
 	compatible = "allwinner,sun6i-a31-i2c";
 	reg = <0x1c2ac00 0x400>;
 	interrupts = <0x0 0x6 0x4>;
