@@ -26,10 +26,8 @@ i2c 400 kHz, в реальности в Linux может работать до 1
 TFT(480x320) 3.5 inch ili9486 or ili9481  for NanoPI NEO
 Работа на частоте от 400 kHZ до 1,7 MHz через MCP23017.
 
-
-интерфейс I2C (MCP23017) для нескольких экранов ili9486
-на одной плате.
-пример экран 3.5" ili9486
+Пример экран 3.5" ili9486, интерфейс I2C (MCP23017) можно подключить нескольких экранов ili9486
+к одной плате Nano PI Neo.
 <img src="/Datasheet/examplePanel_i2c_3_5_ili9486_small.jpg" width=400 >
 <img src="/tft_i2c/Schematic_MCP23017-ili9486_Sheet-1_20190113144251.png" width=400 >
 
