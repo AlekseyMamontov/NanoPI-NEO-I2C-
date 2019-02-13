@@ -42,7 +42,7 @@ TFT(480x320) 3.5 inch ili9486 or ili9481  for NanoPI NEO
 работает по i2C - даташите написано 400 kHz - в реальности работает и 1 Mhz,
 
 <img src="/Datasheet/examplePanel_i2c_3_5_ili9486_small.jpg" width=400 >
-
+<img src="/tft_i2c/Schematic_MCP23017-ili9486_Sheet-1_20190113144251.png" width=400 >
 
 <img src="/Datasheet/example_i2c_MAX6675_4pcs_small.jpg" width=400 >
 <img src="/thermo_i2c/Schematic_optoisilator_Sheet-1_20190113143345.png" width=400 >
