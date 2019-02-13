@@ -43,4 +43,4 @@ TFT(480x320) 3.5 inch ili9486 or ili9481  for NanoPI NEO
 
 <img src="/Datasheet/examplePanel_i2c_3_5_ili9486_small.jpg" width=400 >
 
-<img src="/Datasheet/example_i2c_MAX6675_4pcs_small.jpg width=400 >
+<img src="/Datasheet/example_i2c_MAX6675_4pcs_small.jpg" width=400 >
