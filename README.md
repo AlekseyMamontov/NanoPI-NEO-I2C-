@@ -19,7 +19,8 @@ i2c 400 kHz, в реальности в Linux может работать до 1
 	#size-cells = <0x0>;
 	clock-frequency = <10000000>;
 	}; // 1 Mhz ))
-	</code>
+	
+</code>
 работа с шиной I2C в частности с микросхемой MCP23017  до 1.7 Mhz
 
 TFT(480x320) 3.5 inch ili9486 or ili9481  for NanoPI NEO
