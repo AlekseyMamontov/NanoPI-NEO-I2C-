@@ -1,12 +1,8 @@
 
- /* To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- * File:   main.c
+  /*
  * Author: Aleksey Mamontov
- * Created on 2-10-2018
- 
- * 
+ * Created on 24 июня 2018 г., 23:05
+ * ukrfoil@gmail.com
  */
 
  #include "stanok.h"
