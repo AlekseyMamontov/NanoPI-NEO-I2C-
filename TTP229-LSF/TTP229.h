@@ -1,5 +1,9 @@
 
-
+ /*
+ * Author: Aleksey Mamontov
+ * Created on 24 июня 2018 г., 23:05
+ * ukrfoil@gmail.com
+ */
 /*
 #include <stdio.h>
 #include <stdlib.h>
