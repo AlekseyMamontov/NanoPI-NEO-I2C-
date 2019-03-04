@@ -1,12 +1,10 @@
 
- /* To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- * File:   main.c
+ /*
  * Author: Aleksey Mamontov
  * Created on 24/ 10/2018 г., 23:05
- * 
- * * i2c -> mcp23017 ->ili9486
+ * ukrfoil@gmail.com
+ *
+ * i2c -> mcp23017 ->ili9486
  * 
  * OLATA.0  lcd_d0
  * OLATA.1  lcd_d1
