@@ -1,7 +1,7 @@
 
  /*
  * Author: Aleksey Mamontov
- * Created on 24 июня 2018 г., 23:05
+ * Created on 24 июня 2018 г.,
  * ukrfoil@gmail.com
  */
 /*
