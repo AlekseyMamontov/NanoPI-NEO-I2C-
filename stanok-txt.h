@@ -1,11 +1,7 @@
-
- /* To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- * File:   stanok_txt.h
+ /*
  * Author: Aleksey Mamontov
- 
- 
+ * Created on 24 июня 2018 г., 23:05
+ * ukrfoil@gmail.com
  */
 //////////////////////////////////////////////////////////////////////////
 //				Текст для термостата матрицы					       ///																  |
