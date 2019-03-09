@@ -8,4 +8,11 @@ Linux i2c MCP23017 -> MAX6675
  * to 6 pcs. on i2c using the MCP23017 chip in Linux.
  * Perhaps with 14pcs. if needed :
 
+
+Например, термостат на основе MCP23017 может содержать до 6 датчиков температуры и включать или выключать 6 шт.нагревателей,
+работая под управлением Linux.
+
+For example, a thermostat based on MCP23017 can contain up to 6 temperature sensors and turn on or off 6 pcs of heaters,
+working under linux.
+
 <img src="Schematic_optoisilator_Sheet-1_20190113143345.png" width=400 >
