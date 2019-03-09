@@ -1,2 +1,10 @@
 Linux i2c MCP23017 -> MAX6675 
 ![](Schematic_MAX6675_H11L1_MCP23017.png)
+
+ * Одновременное чтение температуры с нескольких чипов (max6675,max31855)
+ * до 6 шт. по i2c c помощью микросхемы MCP23017 в Linux.
+ * Возможно с 14шт. если нужно :)
+ * 
+ * Simultaneous reading of temperature from several chips (max6675, max31855)
+ * to 6 pcs. on i2c using the MCP23017 chip in Linux.
+ * Perhaps with 14pcs. if needed :
