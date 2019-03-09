@@ -8,4 +8,4 @@ Linux i2c MCP23017 -> MAX6675
  * to 6 pcs. on i2c using the MCP23017 chip in Linux.
  * Perhaps with 14pcs. if needed :
 
-<img src="/thermo_i2c/Schematic_optoisilator_Sheet-1_20190113143345.png" width=400 >
+<img src="Schematic_optoisilator_Sheet-1_20190113143345.png" width=400 >
