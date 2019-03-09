@@ -1,5 +1,5 @@
 Linux i2c MCP23017 -> MAX6675 
-<img src="/thermo_i2c/Schematic_optoisilator_Sheet-1_20190113143345.png" width=400 >
+<img src="Schematic_optoisilator_Sheet-1_20190113143345.png" width=400 >
 
  * Одновременное чтение температуры с нескольких чипов (max6675,max31855)
  * до 6 шт. по i2c c помощью микросхемы MCP23017 в Linux.
