@@ -18,7 +18,7 @@ i2c 400 kHz, в реальности в Linux может работать до 1
 	#address-cells = <0x1>;
 	#size-cells = <0x0>;
 	clock-frequency = <1700000>;
-	}; // 1 Mhz ))
+	}; // 1.7 Mhz   это работает , it's work !! ))
 	
 </code>
 
