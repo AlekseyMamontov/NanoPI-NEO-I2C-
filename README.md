@@ -47,6 +47,7 @@ MCP23017.h
 
 Подключение TFT экранов на чипе ILI9486 через MCP23018  к шине I2C на скорости 3.4 Mhz , 
 например к Nano PI NEO.
+
 Connection of TFT screens on the ILI9486 chip via MCP23018 to the I2C bus at a speed of 3.4 Mhz,
 for example, to the Nano PI NEO in Linux.
 
