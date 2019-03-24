@@ -52,7 +52,9 @@ MCP23017.h
 for example, to the Nano PI NEO in Linux).
 
 <img src="/Datasheet/Schematic_MCP23018-3.4MHz_for_ILI9486.png" width=400 >
+<img src="/Datasheet/ILI9486_TFT_I2c_MCP23018.jpg" width=400 >
 
+---------------------
 Подключение к MCP23017 нескольких чипов температуры MAX6675 можно до 6 штук (
 температура считывается со всех одновременно.
 Принципе количество можно увеличить до 14 штук одновременно - но зачем ))
