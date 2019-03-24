@@ -43,6 +43,14 @@ MCP23017.h
 <img src="/tft_i2c/Schematic_MCP23017-ili9486_Sheet-1_20190113144251.png" width=400 >
 
 
+
+
+Подключение TFT экранов на чипе ILI9486 через MCP23018  к шине I2C на скорости 3.4 Mhz , 
+например к Nano PI NEO.
+Connection of TFT screens on the ILI9486 chip via MCP23018 to the I2C bus at a speed of 3.4 Mhz,
+for example, to the Nano PI NEO in Linux.
+<img src="/tft_i2c/Schematic_MCP23018-3.4MHz_for_ILI9486.png" width=400 >
+
 Подключение к MCP23017 нескольких чипов температуры MAX6675 можно до 6 штук (
 температура считывается со всех одновременно.
 Принципе количество можно увеличить до 14 штук одновременно - но зачем ))
