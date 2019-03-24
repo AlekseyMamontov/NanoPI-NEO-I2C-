@@ -42,7 +42,7 @@ MCP23017.h
 Работа на частоте от 400kHz до 1,7 MHz через MCP23017 и до 3.4Mhz MCP23018
 
 <img src="/Datasheet/examplePanel_i2c_3_5_ili9486_small.jpg" width=400 >
-<img src="/tft_i2c/Schematic_MCP23017-ili9486_Sheet-1_20190113144251.png" width=400 >
+<img src="/Datasheet/Schematic_MCP23017-ili9486_for_Nano_PI_NEO.png" width=400 >
 
 
 
