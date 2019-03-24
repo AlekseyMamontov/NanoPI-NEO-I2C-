@@ -31,13 +31,14 @@ i2c 400 kHz,
 	  это работает , it's work !! ))
 </code>
 
-Работа с шиной I2C, а в частности с микросхемой MCP23017 до 1.7 Mhz
+Библиотека для работа с шиной I2C, а в частности с микросхемой MCP23017 до 1.7 Mhz и MCP23018 до 3.4 Mhz
+
 MCP23017.h
 
-Пример экран TFT(480x320) 3.5 inch ili9486, интерфейс I2C (через MCP23017), можно подключить нескольких экранов
-к одной плате Nano PI Neo.
+Пример экран TFT(480x320) 3.5 inch ili9486, интерфейс I2C (через MCP23017 или MCP23018), можно подключить нескольких экранов
+к одной плате Nano PI Neo, библиотека tft_i2c.h
 
-Работа на частоте от 400 kHZ до 1,7 MHz через MCP23017.
+Работа на частоте от 400kHz до 1,7 MHz через MCP23017 и до 3.4Mhz MCP23018
 
 <img src="/Datasheet/examplePanel_i2c_3_5_ili9486_small.jpg" width=400 >
 <img src="/tft_i2c/Schematic_MCP23017-ili9486_Sheet-1_20190113144251.png" width=400 >
@@ -45,11 +46,10 @@ MCP23017.h
 
 
 
-Подключение TFT экранов на чипе ILI9486 через MCP23018  к шине I2C на скорости 3.4 Mhz , 
+Схема подключение TFT экранов на чипе ILI9486 через MCP23018  к шине I2C на скорости 3.4 Mhz , 
 например к Nano PI NEO.
-
-Connection of TFT screens on the ILI9486 chip via MCP23018 to the I2C bus at a speed of 3.4 Mhz,
-for example, to the Nano PI NEO in Linux.
+(Connection of TFT screens on the ILI9486 chip via MCP23018 to the I2C bus at a speed of 3.4 Mhz,
+for example, to the Nano PI NEO in Linux).
 
 <img src="/Datasheet/Schematic_MCP23018-3.4MHz_for_ILI9486.png" width=400 >
 
