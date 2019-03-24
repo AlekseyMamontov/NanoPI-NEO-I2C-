@@ -50,7 +50,7 @@ MCP23017.h
 Схема подключения - желательно через оптопары H11L1 или ADUM1201  
 
 <img src="/Datasheet/example_i2c_MAX6675_4pcs_small.jpg" width=400 >
-<img src="/thermo_i2c/Schematic_optoisilator_Sheet-1_20190113143345.png" width=400 >
+<img src="/thermo_i2c/Schematic_optoisilator_H11L1M_MAX6675.png" width=400 >
 
 Интересный чип TTP229-LSF  подключатся 16 сенсорных кнопок (даташит в папке), 
 работает по i2C - даташите написано 400 kHz - в реальности работает и 1 Mhz,
