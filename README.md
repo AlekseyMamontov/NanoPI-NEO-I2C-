@@ -1,4 +1,9 @@
 # NanoPI-NEO-I2C
+Не используйте чаcтоту 100kHz- можно но медленно )). Тем более идет новый стандарт  MIPI I3C Basic.
+ожидаемая частота 12.5 MHz
+
+А пока можно использовать - заложенные в MCP23017 и MCP23018 возможности до 3.4 MHz шине.
+
 Сборка gcc -o example stanok.c -lrt
 
 Nano Pi Neo согласно даташита чип H3  может работать по шине
@@ -40,6 +45,7 @@ MCP23017.h
 к одной плате Nano PI Neo, библиотека tft_i2c.h
 
 Работа на частоте от 400kHz до 1,7 MHz через MCP23017 и до 3.4Mhz MCP23018
+
 
 <img src="/Datasheet/examplePanel_i2c_3_5_ili9486_small.jpg" width=400 >
 <img src="/Datasheet/Schematic_MCP23017-ili9486_for_Nano_PI_NEO.png" width=400 >
