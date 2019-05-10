@@ -41,6 +41,20 @@ i2c 400 kHz,
 MCP23017.h
 
 ------------------------------
+bugs errata mcp23017
+site microchip
+
+Question	
+On MCP23008 device, if the GPIO7 input changes, or on MCP23017 if GPIOA7 or GPIOB7 input changes while the I2C master is reading this bit from the GPIO register, the SDA signal can change and look like a STOP condition on the bus.
+Answer	
+The solution is to use a different pin as input, no other workaround available now.
+
+Вопрос	
+На устройстве MCP23008, если изменяется вход GPIO7, или на MCP23017, если изменяется вход GPIOA7 или GPIOB7, когда мастер I2C считывает этот бит из регистра GPIO, сигнал SDA может измениться и выглядеть как состояние STOP на шине.
+Ответ	
+Решение состоит в том, чтобы использовать другой вывод в качестве входа, другого обходного пути сейчас нет.
+
+------------------------------
 Пример экран TFT(480x320) 3.5 inch ili9486, интерфейс I2C (через MCP23017 или MCP23018), можно подключить нескольких экранов
 к одной плате Nano PI Neo, библиотека tft_i2c.h
 
