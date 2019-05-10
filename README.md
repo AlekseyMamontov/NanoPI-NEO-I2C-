@@ -40,24 +40,7 @@ i2c 400 kHz,
 
 MCP23017.h
 
-------------------------------
-bugs errata mcp23017
-site microchip
 
-Question	
-On MCP23008 device, if the GPIO7 input changes, or on MCP23017 if GPIOA7 or GPIOB7 input changes while the I2C master is reading this bit from the GPIO register, the SDA signal can change and look like a STOP condition on the bus.
-Answer	
-The solution is to use a different pin as input, no other workaround available now.
-
-Вопрос
-
-На устройстве MCP23008, если изменяется вход GPIO7, или на MCP23017, если изменяется вход GPIOA7 или GPIOB7, когда мастер I2C считывает этот бит из регистра GPIO, сигнал SDA может измениться и выглядеть как состояние STOP на шине.
-
-Ответ
-
-Решение состоит в том, чтобы использовать другой вывод в качестве входа, другого обходного пути сейчас нет.
-
-------------------------------
 Пример экран TFT(480x320) 3.5 inch ili9486, интерфейс I2C (через MCP23017 или MCP23018), можно подключить нескольких экранов
 к одной плате Nano PI Neo, библиотека tft_i2c.h
 
@@ -88,7 +71,25 @@ for example, to the Nano PI NEO in Linux).
 <img src="/Datasheet/example_i2c_MAX6675_4pcs_small.jpg" width=400 >
 <img src="/thermo_i2c/Schematic_optoisilator_H11L1M_MAX6675.png" width=400 >
 
------------------------
+-----------------------------------------
+bugs errata mcp23017
+site microchip
+
+Question	
+On MCP23008 device, if the GPIO7 input changes, or on MCP23017 if GPIOA7 or GPIOB7 input changes while the I2C master is reading this bit from the GPIO register, the SDA signal can change and look like a STOP condition on the bus.
+Answer	
+The solution is to use a different pin as input, no other workaround available now.
+
+Вопрос
+
+На устройстве MCP23008, если изменяется вход GPIO7, или на MCP23017, если изменяется вход GPIOA7 или GPIOB7, когда мастер I2C считывает этот бит из регистра GPIO, сигнал SDA может измениться и выглядеть как состояние STOP на шине.
+
+Ответ
+
+Решение состоит в том, чтобы использовать другой вывод в качестве входа, другого обходного пути сейчас нет.
+
+------------------------------------------
+
 Из-за особенностей внутренней реализации MCP23017 и MCP23018 (или бага в последней), они ведут себя по разному при записи в один регистр по кругу (режим bit5 SEQOP = 1) , если писать напрямую в защелки регистр OLATA(B), то mcp23017 ведет себя адекватно и ожидаемо, пишет по кругу в данные регистры, но mcp23018 - сходит с ума )), записав первую пару значений, перескакивает на следующую пару регистров и пишет все остальные данные в эти регистры, а так как это последния пара регистров OLATA(B) - то все остальные данные попадают в первыую пару регистров IODIRA(B) - отвечающая за выставление направление портов - и в этоге становится весело и этот баг нигде не описан.          
 
 *Поэтому наверно не стоит писать напрямую в регистры  OLATA(B) по кругу, для этого лучше работать c GPIOA(B), в итоге получается примерно адекватная реакция от MCP23018  - он исходя из логики описанной работы , записывает первую пару значений GPIOA(B), и затем все остальное в OLATA(B). примерно как то так))
