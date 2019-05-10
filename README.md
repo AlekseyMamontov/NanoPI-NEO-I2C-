@@ -49,9 +49,12 @@ On MCP23008 device, if the GPIO7 input changes, or on MCP23017 if GPIOA7 or GPIO
 Answer	
 The solution is to use a different pin as input, no other workaround available now.
 
-Вопрос	
+Вопрос
+
 На устройстве MCP23008, если изменяется вход GPIO7, или на MCP23017, если изменяется вход GPIOA7 или GPIOB7, когда мастер I2C считывает этот бит из регистра GPIO, сигнал SDA может измениться и выглядеть как состояние STOP на шине.
-Ответ	
+
+Ответ
+
 Решение состоит в том, чтобы использовать другой вывод в качестве входа, другого обходного пути сейчас нет.
 
 ------------------------------
