@@ -4,7 +4,7 @@
 
 А пока можно использовать - заложенные в MCP23017 и MCP23018 возможности до 3.4 MHz шине.
 
-Сборка gcc -o example stanok.c -lrt
+Сборка gcc -o example stanok.c -lrt -pthread
 
 Nano Pi Neo согласно даташита чип H3  может работать по шине
 i2c 400 kHz, 
