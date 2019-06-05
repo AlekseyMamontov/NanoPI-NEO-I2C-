@@ -134,49 +134,46 @@ extern void Stanok_init_device (){
 ////////  микросхемы I2C mcp 230xx (17-18) ///////  
 
 void mcp_set_pin(uint8_t pin ,uint8_t value){
-	Stanok_PIN.value = value;	
-	mcp23017_registr_set_bit (Stanok_CHIP,
-							  GPIOA,
-							  Stanok_PIN.bit,
-							  Stanok_PIN.value);
+Stanok_PIN.value = value;	
+mcp23017_registr_set_bit (Stanok_CHIP,
+			  GPIOA,
+			  Stanok_PIN.bit,
+			  Stanok_PIN.value);
 };
 
 uint8_t mcp_get_pin (uint8_t pin){
-	return Stanok_PIN.value = mcp23017_registr_read_bit(Stanok_CHIP,
-														 GPIOA,
-														 Stanok_PIN.bit);
+return Stanok_PIN.value = mcp23017_registr_read_bit(Stanok_CHIP,GPIOA,Stanok_PIN.bit);
 };
 
 void mcp_direction (uint8_t pin, uint8_t value){	
-	Stanok_PIN.direction = value;
-	mcp23017_registr_set_bit (Stanok_CHIP,
-							  GPPUA,
-							  Stanok_PIN.bit,
-							  Stanok_PIN.direction);
+Stanok_PIN.direction = value;
+mcp23017_registr_set_bit (Stanok_CHIP,
+			  GPPUA,
+			  Stanok_PIN.bit,
+			  Stanok_PIN.direction);
 };
 
 void mcp_init(uint8_t pin){
 		
-	mcp23017_set_mode(Stanok_CHIP,
-					  Stanok_PIN.bit,
-					  Stanok_PIN.direction); //0-out 1-in
-	
-	if(Stanok_PIN.direction&1){
-		
-					  mcp23017_set_pullUP(Stanok_CHIP,
-										  Stanok_PIN.bit,
-										  Stanok_PIN.default_value);
-					  mcp23017_set_IPOL(Stanok_CHIP,
-										Stanok_PIN.bit,
-										Stanok_PIN.ipol);
-					  Stanok_PIN.value = mcp23017_read_pin_bit(Stanok_CHIP,
-																Stanok_PIN.bit); 
-					  return;};
+mcp23017_set_mode(Stanok_CHIP,
+		  Stanok_PIN.bit,
+		  Stanok_PIN.direction); //0-out 1-in
+
+if(Stanok_PIN.direction&1){		
+	mcp23017_set_pullUP(Stanok_CHIP,
+			    Stanok_PIN.bit,
+			    Stanok_PIN.default_value);
+	mcp23017_set_IPOL(Stanok_CHIP,
+			  Stanok_PIN.bit,
+			  Stanok_PIN.ipol);
+			  Stanok_PIN.value = mcp23017_read_pin_bit(Stanok_CHIP,
+								   Stanok_PIN.bit); 
+return;};
 						 
-	Stanok_PIN.value = Stanok_PIN.default_value;					 	
-	mcp23017_set_pin_bit (Stanok_CHIP,
-						  Stanok_PIN.bit,
-						  Stanok_PIN.value);
+Stanok_PIN.value = Stanok_PIN.default_value;					 	
+mcp23017_set_pin_bit (Stanok_CHIP,
+		      Stanok_PIN.bit,
+		      Stanok_PIN.value);
 };
 
 uint8_t mcp_get_async (uint8_t pin){
