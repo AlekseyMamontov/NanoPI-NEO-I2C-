@@ -53,8 +53,7 @@ while(max6675.status){};
 
 
 // сохранить сырые данные в массиве, согласно - N_thermal_sensors (количеству подключенных MAX6675)
-// 1 - bit2 , 2- bit3 .... 6 -bit7 
-// 
+
 
 	
 	for (uint8_t t=0; t < thermosensor->N_thermal_sensors; t++){					
