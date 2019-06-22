@@ -262,30 +262,6 @@ pthread_mutex_lock (&chip->lock_registr);
 																			     
 pthread_mutex_unlock (&chip->lock_registr);																													
 };
-
-//------------------------------------------------------------------------------------//
-//	Registr set bit - установить бит в регистре на чипе								  //
-//------------------------------------------------------------------------------------//
-
-uint8_t mcp23017_registr_set_bit2(MCP23017 *chip, uint8_t registr, uint8_t bit,uint8_t value){
-	
-	registr = (registr == GPIOA)? registr + 2 : registr ;
-	registr = registr|((bit&0b00001000)>>3);		// регистр A или B (OLAT..)
-	uint8_t status_bit = 0b00000001 << (bit&0x7);	// выставить бит на данном порту
-			
-	mcp23017_read_byte(chip,registr);		// Если это регисты портов - то считать данные
-													// с регистра OLATA(B) - защелки на выход.
-	
-	chip->registr[registr] = (value)? chip->registr[registr]|status_bit:// 1
-									  chip->registr[registr]&(~status_bit); // 0
-			
-	mcp23017_write_byte(chip,registr,chip->registr[registr]); // и записать 		
-};
-
-
-
-
-
 //-------------------------------------------------------------------------------------//
 //	Registr read bit - считать значение  бита в регистре на чипе					   //
 //-------------------------------------------------------------------------------------//
