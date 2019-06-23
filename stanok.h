@@ -43,10 +43,10 @@
 #define MAX_CHIP 2
 
 MCP23017 chip1 = { .i2_bus = "/dev/i2c-0",
-				   .address = 0x20,
-				   //.lock_registr_GPIO = PTHREAD_MUTEX_INITIALIZER,
-				   //.lock_registr_OLAT = PTHREAD_MUTEX_INITIALIZER,
-				   .lock_registr = PTHREAD_MUTEX_INITIALIZER,		   
+		   .address = 0x20,
+		 //.lock_registr_GPIO = PTHREAD_MUTEX_INITIALIZER,
+		 //.lock_registr_OLAT = PTHREAD_MUTEX_INITIALIZER,
+		   .lock_registr = PTHREAD_MUTEX_INITIALIZER,		   
 				   };
 
 
@@ -279,23 +279,21 @@ struct nGPIO Stanok_gpio = {
 /*
 +------------------------------------------------------+
 | Подключаем термопары к mcp23017, схема подключения   |
-| термопары Clk 0,CS-1, MiSO 2-7 бит (до 6шт,) 		   |
+| термопары Clk 0,CS-1, MiSO 2-7 бит (до 6шт,) 	       |
 +------------------------------------------------------+*/
 		
 struct Thermosensors MAX6675={
-	
-	//.gpio = &Stanok_gpio,					//cm.i2c-max6675
+
 	.check_thermocouple = {0},
 	.N_thermal_sensors = 2,
 
-	.pin_clk = MAX6675_CLK,				// номер бит в который выбран в этом порту CLK
+	.pin_clk = MAX6675_CLK,
 	.pin_cs =  MAX6675_CS,
 	.pin_miso = {MAX6675_MISO_0,
-				 MAX6675_MISO_1,
-				 MAX6675_MISO_2,
-				 MAX6675_MISO_3},
-	.t_correct = {0,0},
-	
+		     MAX6675_MISO_1,
+		     MAX6675_MISO_2,
+		     MAX6675_MISO_3},
+	.t_correct = {0,0},	
 	.time = {
 		.it_value={		
 			.tv_sec = 0,     // Время опроса примерно 500 милисекунд, достаточно ))
@@ -304,13 +302,9 @@ struct Thermosensors MAX6675={
 		.it_interval ={
 			.tv_sec = 0,
 			.tv_nsec = 0}
-	},
-		
-	
+	},	
 	.temperature_raw_processing = max6675_read_raw,
-	.temperature_data_processing = max6675_data_to_char,
-	
-	
+	.temperature_data_processing = max6675_data_to_char,	
 };
 	
 /*
@@ -343,23 +337,17 @@ struct Thermostat TEN_matrix = {
 			.visible_block = {&MAX6675.thermo_char_visible[0]},
       
 			.change_block = {TEN_matrix_temperature,
-							 TEN_matrix_on,
-							 TEN_matrix_off},							 
+					 TEN_matrix_on,
+					 TEN_matrix_off},							 
 			.change_text = {TEN_matrix_temperature_txt,
-							TEN_matrix_on_txt,
-							TEN_matrix_off_txt},
-			
-			.new_change_txt = {MAX6675.thermo_char[0]}, // чтение температуры из канала 1
-						
+					TEN_matrix_on_txt,
+					TEN_matrix_off_txt},			
+			.new_change_txt = {MAX6675.thermo_char[0]}, // чтение температуры из канала 1						
 			.N_change_block = 3,
 			.N_fast_change_block = 1,
-
 			.N_change_char_text = {5,5,5},
-
-			.Change_InfoBlock = {tft_fast_change_number}, // тест 
-			
-			},
-			
+			.Change_InfoBlock = {tft_fast_change_number}, // тест 			
+			},			
 	.check_temperature = thermostat_check,
 	.enabled_device = Stanok_enabled_device,
 	.disabled_device = Stanok_disabled_device,
@@ -393,11 +381,11 @@ struct Thermostat TEN_punch = {
 			.visible_block = {&MAX6675.thermo_char_visible[1]},
 				     
 			.change_block = {TEN_punch_temperature,
-							 TEN_punch_on,
-							 TEN_punch_off},							 
+					 TEN_punch_on,
+					 TEN_punch_off},							 
 			.change_text = {TEN_punch_temperature_txt,
-							TEN_punch_on_txt,
-							TEN_punch_off_txt},
+					TEN_punch_on_txt,
+					TEN_punch_off_txt},
 			.new_change_txt = {MAX6675.thermo_char[1]}, // чтение температуры из канала 0
 			
 			.N_change_block = 3,
@@ -517,20 +505,20 @@ struct Indikator Indikators_devices={
  .info_block = {   
      .init_block = init_indikator_devices,	
      
-     .visible_block = {&TEN_punch_led_visible,
-					   &TEN_matrix_led_visible,
-					   &pneumatic_cylinder1_visible,
-					   &pneumatic_klapan1_led_visible},
+     .visible_block = {	&TEN_punch_led_visible,
+		 	&TEN_matrix_led_visible,
+			&pneumatic_cylinder1_visible,
+			&pneumatic_klapan1_led_visible},
      
-     .change_block = {TEN_punch_led,
-					  TEN_matrix_led,
-					  pneumatic_cylinder1_led,
-					  pneumatic_klapan1_led
+     .change_block = {	TEN_punch_led,
+			TEN_matrix_led,
+			pneumatic_cylinder1_led,
+			pneumatic_klapan1_led
 					  },
 	.change_text = {TEN_punch_led_txt,
-					TEN_matrix_led_txt,
-					pneumatic_cylinder1_led_txt,
-					pneumatic_klapan1_led_txt
+			TEN_matrix_led_txt,
+			pneumatic_cylinder1_led_txt,
+			pneumatic_klapan1_led_txt
 					},			
 	 .new_change_txt = {0}, 
 					
@@ -541,17 +529,17 @@ struct Indikator Indikators_devices={
 			
  // пины устройств которые мы контролируем на изменения			
 		.pin = {TEN_PUNCH,
-				TEN_MATRIX,
-				PNEVMOCYLINDR,
-				VACUUM_VALVE}, 	    
+			TEN_MATRIX,
+			PNEVMOCYLINDR,
+			VACUUM_VALVE}, 	    
 						    
 	.indikator_on_color ={0x0400,0x0400,0x400,0x400},							    	
 	.indikator_off_color = {0,0,0,0},		
 			
-	.Change_InfoBlock = {tft_fast_change_led,
-						 tft_fast_change_led,
-						 tft_fast_change_led,
-						 tft_fast_change_led
+	.Change_InfoBlock = {	tft_fast_change_led,
+			     	tft_fast_change_led,
+			     	tft_fast_change_led,
+				tft_fast_change_led
 						},	
 						
 	.get_pin = Stanok_gpio_get,					
@@ -568,18 +556,18 @@ struct Indikator Indikators_sensors={
      
      .init_block = init_indikator_sensors,
      
-     .visible_block = {&sensors_1_led_visible,
-					   &sensors_2_led_visible,
-					   &sensors_3_led_visible},	
+     .visible_block = {	&sensors_1_led_visible,
+			&sensors_2_led_visible,
+			&sensors_3_led_visible},	
      
-     .change_block ={ sensors_1_led,
-					  sensors_2_led,
-					  sensors_3_led,
-					  },
+     .change_block ={ 	sensors_1_led,
+			sensors_2_led,
+			sensors_3_led,
+	},
 														 
-	 .change_text = {sensors_1_led_txt,
-					 sensors_2_led_txt,
-					 sensors_3_led_txt,					 
+	.change_text = {sensors_1_led_txt,
+			sensors_2_led_txt,
+			sensors_3_led_txt,					 
 					 },
 			
 	 .new_change_txt = {0}, 
@@ -595,10 +583,10 @@ struct Indikator Indikators_sensors={
 			    LIMIT_SWITCH,
 			    LIMIT_SWITCH_2}, 
 			
-		.indikator_on_color ={0xfc00,
-							  0xfc00,
-							  0xfc00
-							  },							    	
+		.indikator_on_color ={	0xfc00,
+					0xfc00,
+					0xfc00
+			},							    	
 		.indikator_off_color = {0,0,0,0},
 							
 			.Change_InfoBlock = {
