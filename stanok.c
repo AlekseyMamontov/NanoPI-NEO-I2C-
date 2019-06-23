@@ -27,14 +27,12 @@ if (mcp23017_open_i2c (&chip1) < 0){
 	return -1;
 	};
 	
-
-
-struct TFT_screen_panel *panel = &TFT_screen_1;
-pthread_start_tft_panel (panel);
-
 mcp23017_restore_default(&chip1);
 pthread_start_nGPIO (&Stanok_gpio);
 
+struct TFT_screen_panel *panel = &TFT_screen_1;
+pthread_start_tft_panel (panel);
+	
 pthread_start_thermosensors(&MAX6675);
 pthread_start_counters(&Stanok_counters);
 
