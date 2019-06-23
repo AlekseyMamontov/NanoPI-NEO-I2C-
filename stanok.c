@@ -40,8 +40,6 @@ pthread_start_counters(&Stanok_counters);
 uint8_t old_status = 0;
 while(1){
 
-		
-TEN_matrix.check_temperature(&TEN_matrix);
 
 //if(cycle2) Test_operation.launch_transition(&Test_operation);
 
@@ -70,30 +68,4 @@ usleep(10000);
 printf ("test end \n");
 return (EXIT_SUCCESS);
 };
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
