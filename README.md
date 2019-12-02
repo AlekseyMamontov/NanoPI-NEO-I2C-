@@ -99,4 +99,6 @@ The solution is to use a different pin as input, no other workaround available n
 Интересный чип TTP229-LSF  подключатся 16 сенсорных кнопок (даташит в папке), 
 работает по i2C - даташите написано 400 kHz - в реальности работает и 1 Mhz,
 
+-----------------
+Тест проeкт платы https://easyeda.com/AlekssII/copy-plk3_copy_copy_copy_copy_copy_copy_copy_copy_copy
 
