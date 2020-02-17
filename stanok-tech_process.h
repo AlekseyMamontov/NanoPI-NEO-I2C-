@@ -620,7 +620,7 @@ printf("enabled Tech_process ... \n");
 	case START_OPERATION:
  	 
  	 if(status_process != NULL_OPERATION) break; 
-     printf("start Tech_transition \n");
+    	 printf("start Tech_transition \n");
  	 	 
 	 if(*number_operation >= tech_process->N_operation) break;
 
@@ -642,21 +642,17 @@ printf("enabled Tech_process ... \n");
 	  
 	/* Сбрасываем счетчик  - это костыль надо сделать правильно*/  
 	 
-	 counter = *operation->counters;
-
+	counter = *operation->counters;
 	for(int i=0 ; i< operation->N_counter; i++){
-	
 	(counter + i)->counter_raw = *(operation->counter_raw + i);
-	
 	(counter + i)->counter_event = *(operation->counter_raw + i);
-	/* обновляем будущие событие  согласно  >counter_event*/
+	/* обновляем будущие событие согласно  counter_event*/
 	(counter + i)->future_counter_raw_event = 
 		(*(operation->counter_raw + i)) + (*(operation->counter_raw + i));
-    /*очередь цепочки событий в ноль*/
+        /*очередь цепочки событий в ноль*/
 	(counter + i)->N_positions_in_the_event = 0;
-	/* сбрасываем счетчик в default и сообщаем tft чтоб обновил счетчик на экране*/
-	(counter + i)->counter_raw_to_char(
-			&(counter + i)->info_block,0,10,(counter + i)->counter_raw);
+	/*сообщаем tft_i2c чтоб обновил счетчик на экране*/
+	(counter + i)->counter_raw_to_char(&(counter + i)->info_block,0,10,(counter + i)->counter_raw);
 	};
 	
 	  
