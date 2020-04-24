@@ -178,7 +178,7 @@ struct nPIN Stanok_pins[MAX_PIN]={
 	 .on = HIGH, 
 	 .ipol = pin_no_invert,
 },
-//pin10 - оптопара вход данных MISO c MAX6675
+//pin10 - оптопара вход  концевик
 #define LIMIT_SWITCH 10
 {
 	 .n_chip= CHIP1,
@@ -189,7 +189,7 @@ struct nPIN Stanok_pins[MAX_PIN]={
 	 .ipol = pin_no_invert,
 	// .active_pin = 1,
 },
-//pin11 - оптопара вход c MAX6675 или можно использовать как оптовход до 1мбитс
+//pin11 - оптопара концевик
 #define LIMIT_SWITCH_2 11
 {
 	 .n_chip= CHIP1,
@@ -201,7 +201,7 @@ struct nPIN Stanok_pins[MAX_PIN]={
 	// .active_pin = 1,
 	 
 },
-//pin12 - оптопара вход c MAX6675 или можно использовать как оптовход до 1мбитс
+//pin12 - оптопара вход концевик
 #define LIMIT_SWITCH_3 12
 {
 	 .n_chip= CHIP1,
@@ -212,7 +212,7 @@ struct nPIN Stanok_pins[MAX_PIN]={
 	 .ipol = pin_no_invert,
 	 //.active_pin = 1,
 },
-//pin1 - оптопара вход c MAX6675 или можно использовать как оптовход до 1мбитс
+//pin13 - оптопара счетчик продукции
 #define SENSOR_PRODUCT 13
 {
 	 .n_chip= CHIP1,
