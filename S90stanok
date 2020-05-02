@@ -1,0 +1,32 @@
+#!/bin/sh
+
+STANOK=/usr/plc2/tft58
+PID=/var/run/tft58.pid
+
+if ! [ -x $STANOK ]; then
+	exit 0
+fi
+
+case "$1" in
+    start)
+	echo -n "Starting STANOK"
+	$STANOK 	
+	;;
+    stop)
+	echo -n "Stop STANOK"
+	kill `cat $PID`
+	;;
+    restart)
+	echo -n "Restarting STANOK"
+	echo -n " ninfod"
+	kill `cat $PID`
+	$STANOK
+	;;
+    *)
+	echo "erorr STANOK"
+	exit 1
+	;;
+esac
+
+exit 0
+
