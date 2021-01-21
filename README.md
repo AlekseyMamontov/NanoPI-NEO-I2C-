@@ -100,5 +100,11 @@ The solution is to use a different pin as input, no other workaround available n
 работает по i2C - даташите написано 400 kHz - в реальности работает и 1 Mhz,
 
 -----------------
+Порты на NanoPI NEO v1.4
+ 
+<img src="/Datasheet/NANO_PI_NEO_1_4_pinout.png" width=400 >
+
+
+-----------------
 Тест проeкт платы https://easyeda.com/AlekssII/copy-plk3_copy_copy_copy_copy_copy_copy_copy_copy_copy
 
