@@ -101,8 +101,9 @@ The solution is to use a different pin as input, no other workaround available n
 
 -----------------
 Пины которые можно использовать на NanoPI NEO v1.4
-По сути доступно 23 пина, (из них 2шт. I2C0, I2C1 ). 
-<img src="/Datasheet/NANO_PI_NEO_1_4_pinout.png" width=400 >
+По сути доступно 24 пина, (из них 2шт. I2C0, I2C1 ). 
+
+<img src="/Datasheet/NANO_PI_NEO_1_4_pinout.png" width=500 >
 
 
 -----------------
