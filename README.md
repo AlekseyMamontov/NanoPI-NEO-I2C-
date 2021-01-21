@@ -104,14 +104,16 @@ The solution is to use a different pin as input, no other workaround available n
 (из них 2шт. I2C0, I2C1 ). 
 
 PA0,PA1,PA2,PA3,PA4,PA5,PA6,PA11,PA12,PA17,PA18,PA19,PA20,PA21
+
 PC0,PC1,PC2,PC3 (SPI)
+
 PG6,PG7,PG8,PG9,PG11
+
 PL11
 
 PA10 - Status LED
+
 PL10 - Power LED
-
-
 
 <img src="/Datasheet/NANO_PI_NEO_1_4_pinout.png" width=500 >
 
