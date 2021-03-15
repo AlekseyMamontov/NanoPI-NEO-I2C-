@@ -1,0 +1,42 @@
+13 Layout
+13.1 Layout Guidelines
+In order for the PCB design to be successful, start with design of the protection and filtering circuitry. Because
+ESD and EFT transients have a wide frequency bandwidth from approximately 3 MHz to 3 GHz, high frequency
+layout techniques must be applied during PCB design. On chip IEC ESD protection is good for laboratory and
+portable equipment but is usually not sufficient for EFT and surge transients occurring in industrial environments.
+Therefore robust and reliable bus node design requires the use of external transient protection devices at the bus
+connectors. Placement at the connector also prevents these harsh transient events from propagating further into
+the PCB and system.
+Use VCC and ground planes to provide low inductance. Note: high frequency current follows the path of least
+inductance and not the path of least resistance.
+Design the bus protection components in the direction of the signal path. Do not force the transient current to
+divert from the signal path to reach the protection device.
+An example placement of the Transient Voltage Suppression (TVS) device indicated as D1 (either bi-directional
+diode or varistor solution) and bus filter capacitors C8 and C9 are shown in .
+The bus transient protection and filtering components should be placed as close to the bus connector, J1, as
+possible. This prevents transients, ESD and noise from penetrating onto the board and disturbing other devices.
+Bus termination: Figure 44 shows split termination. This is where the termination is split into two resistors, R7
+and R8, with the center or split tap of the termination connected to ground via capacitor C7. Split termination
+provides common mode filtering for the bus. When termination is placed on the board instead of directly on the
+bus, care must be taken to ensure the terminating node is not removed from the bus as this will cause signal
+integrity issues of the bus is not properly terminated on both ends. See the application section for information on
+power ratings needed for the termination resistor(s).
+Bypass and bulk capacitors should be placed as close as possible to the supply pins of transceiver, examples
+C2, C3 (VCC).
+Use at least two vias for VCC and ground connections of bypass capacitors and protection devices to minimize
+trace and via inductance.
+To limit current of digital lines, serial resistors may be used. Examples are R1, R2, R3 and R4.
+To filter noise on the digital IO lines, a capacitor may be used close to the input side of the IO as shown by C1
+and C4.
+Since the internal pull up and pull down biasing of the device is weak for floating pins, an external 1k to 10k ohm
+pull-up or down resistor should be used to bias the state of the pin more strongly against noise during transient
+events.
+Pin 1: If an open drain host processor is used to drive the D pin of the device an external pull-up resistor
+between 1k and 10k ohms should be used to drive the recessive input state of the device (R1).
+Pin 8: is shown assuming the mode pin, RS, will be used. If the device will only be used in normal mode or slope
+control mode, R3 is not needed and the pads of C4 could be used for the pull down resistor to GND.
+Pin 5 in is shown for the SN65HVD230 and SN65HVD231 devices which have a Vref output voltage reference. If
+used, this pin should be tied to the common mode point of the split termination. If this feature is not used, the pin
+can be left floating.
+For the SN65HVD232, pins 5 and 8 are no connect (NC) pin. This means that the pins are not internally
+connected and can be left floating.
