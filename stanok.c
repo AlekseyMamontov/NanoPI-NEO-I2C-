@@ -87,9 +87,7 @@ while(1){
 	if(chip_keys.buffer[0] == 15 && old_status !=15) {		
 		tft_set_command(panel,TFT_MENU_ENTER,&Stanok_Menu);
 		old_status = 15;};	
-	if(chip_keys.buffer[0] == 14 && old_status !=14) {		
-		tft_set_command(panel,TFT_FAST_CLEAR,NULL);
-		old_status = 14;};
+	
 		
 	if(chip_keys.buffer[0] != old_status) old_status = 0;
 
